@@ -73,12 +73,17 @@
 
     <div class="info-section">
         <div class="card">
-            <div class="title-box">
-                <h1>Map of Africa</h1>
-            </div>
-            
-            <div id="intro-message" class="placeholder-text">
-                Select a Region...
+            <span class="close-btn">&times;</span>
+
+            <div id="welcome-message">
+                <div class="title-box">
+                    <h1>Ancient Africa</h1>
+                </div>
+                <div class="ink-line"></div>
+                <p class="placeholder-text">
+                    Explore the continent.<br>
+                    Click any region to reveal its history.
+                </p>
             </div>
 
             <div id="country-details" style="display: none;">
@@ -86,13 +91,14 @@
                 <div class="ink-line"></div>
                 
                 <div class="data-row"><span class="label">Population:</span> <span class="value" id="pop"></span></div>
-                <div class="data-row"><span class="label">President:</span> <span class="value" id="pres"></span></div>
-                <div class="data-row"><span class="label">Independence:</span> <span class="value" id="indep"></span></div>
-                <div class="data-row"><span class="label">Colonized by:</span> <span class="value" id="colony"></span></div>
+                <div class="data-row"><span class="label">Ruler:</span> <span class="value" id="pres"></span></div>
+                <div class="data-row"><span class="label">Established:</span> <span class="value" id="indep"></span></div>
+                <div class="data-row"><span class="label">Origin:</span> <span class="value" id="colony"></span></div>
                 <div class="data-row"><span class="label">Known For:</span> <span class="value" id="famous"></span></div>
-                <div class="data-row"><span class="label">Rank:</span> <span class="value" id="rank"></span></div>
+                <div class="data-row"><span class="label">Size Rank:</span> <span class="value" id="rank"></span></div>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="script.js"></script>
