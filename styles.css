@@ -1,4 +1,4 @@
-/* --- ANCIENT PAPER BACKGROUND & LAYOUT --- */
+/* --- ANCIENT PAPER BACKGROUND --- */
 body { 
     margin: 0; 
     height: 100vh; 
@@ -32,6 +32,7 @@ svg {
     height: 95%;
     filter: sepia(0.6) contrast(1.1) drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); 
     mix-blend-mode: multiply; 
+    transition: transform 0.3s ease;
 }
 
 path {
@@ -59,23 +60,25 @@ text {
     opacity: 0.9;
 }
 
+/* --- LANDSCAPE POPUP CARD (Desktop Default) --- */
 .info-section {
     position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 320px;
+    /* Center-Bottom positioning looks better for Landscape */
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px; /* Limits width so it's not too stretched */
     z-index: 100;
-    
-    /* display: none;  <-- REMOVE THIS LINE so it shows on load */
 }
 
 .card {
     background: #fdf5e6;
-    padding: 30px;
+    padding: 20px 40px 20px 20px; /* Extra padding right for Close Button */
     border: 2px solid #5d4037;
-    box-shadow: 10px 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0px -5px 20px rgba(0,0,0,0.4);
     position: relative;
+    border-radius: 4px;
 }
 
 .card::before {
@@ -86,21 +89,31 @@ text {
     pointer-events: none;
 }
 
-.title-box {
-    border: 3px double #3e2723;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    background: rgba(210, 180, 140, 0.3);
+/* --- CLOSE BUTTON (Fixed) --- */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 35px; /* Bigger touch target */
+    color: #5d4037;
+    cursor: pointer;
+    z-index: 200; /* High Z-index ensures it sits on top */
+    line-height: 25px;
+    padding: 5px; /* Make click area bigger */
 }
 
-h1 {
+.close-btn:hover {
+    color: #d84315;
+}
+
+/* --- CONTENTS --- */
+.title-box h1 {
     font-family: 'Cinzel Decorative', cursive; 
     color: #3e2723;
-    font-size: 2.2em;
+    font-size: 1.8em;
     margin: 0;
+    text-align: center;
     text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 h2 {
@@ -108,58 +121,70 @@ h2 {
     text-align: center;
     color: #8d6e63;
     margin: 0 0 10px 0;
-    font-size: 1.8em;
+    font-size: 1.5em;
 }
 
 .ink-line {
     height: 1px;
     background: #8d6e63;
-    width: 60%;
-    margin: 0 auto 20px auto;
+    width: 80%;
+    margin: 0 auto 15px auto;
+}
+
+/* --- LANDSCAPE GRID FOR DATA --- */
+/* This splits the data into 2 columns */
+#country-details {
+    display: none; /* Controlled by JS */
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px 30px; /* Gap between rows and columns */
 }
 
 .data-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
     border-bottom: 1px dotted #a1887f;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
 }
 
 .label { 
     font-weight: bold; 
     color: #5d4037; 
-    font-size: 1em; 
     font-family: 'Cinzel Decorative', serif;
 }
 
 .value { 
     text-align: right; 
     color: #212121; 
-    font-size: 1.1em;
 }
 
 .placeholder-text { 
     text-align: center; 
     color: #8d6e63; 
     font-style: italic; 
-    font-size: 1.4em; 
-    padding: 20px;
+    font-size: 1.2em; 
 }
 
-/* --- CLOSE BUTTON --- */
-.close-btn {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    font-size: 30px;
-    font-weight: bold;
-    color: #5d4037;
-    cursor: pointer;
-    transition: 0.2s;
-    line-height: 20px;
-}
-
-.close-btn:hover {
-    color: #d84315; /* Reddish on hover */
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 600px) {
+    .info-section {
+        width: 95%;
+        bottom: 10px;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr; /* Back to 1 column on very small screens */
+        gap: 5px;
+    }
+    
+    h1 { font-size: 1.4em; }
+    h2 { font-size: 1.2em; }
+    
+    /* Move map up slightly so popup doesn't cover it */
+    svg {
+        transform: translateY(-10%);
+    }
 }
