@@ -143,12 +143,11 @@ paths.forEach(path => {
     });
 });
 
-// D. Click Anywhere Else to Close
-document.addEventListener('click', function(e) {
-    const isClickInsideCard = infoSection.contains(e.target);
-    const isClickOnCountry = e.target.tagName === 'path';
+// D. Close Button Logic
+const closeBtn = document.querySelector('.close-btn');
 
-    if (!isClickInsideCard && !isClickOnCountry) {
-        infoSection.style.display = 'none';
-    }
+closeBtn.addEventListener('click', function(e) {
+    // This prevents the click from bubbling down to "document"
+    e.stopPropagation(); 
+    infoSection.style.display = 'none';
 });
