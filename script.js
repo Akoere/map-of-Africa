@@ -70,7 +70,8 @@ const palette = [
 // --- 3. MAP SETUP LOGIC ---
 const svg = document.querySelector('svg');
 const paths = document.querySelectorAll('path');
-const introMsg = document.getElementById('intro-message');
+
+const infoSection = document.querySelector('.info-section'); // Select the main container
 const detailsDiv = document.getElementById('country-details');
 
 const fields = {
@@ -98,7 +99,6 @@ paths.forEach(path => {
     // B. Add Text Label
     if (countryData[id]) {
         try {
-            // Find center of country
             const bbox = path.getBBox();
             const centerX = bbox.x + bbox.width / 2;
             const centerY = bbox.y + bbox.height / 2;
@@ -117,8 +117,13 @@ paths.forEach(path => {
         }
     }
 
-    // C. Add Click Listener
-    path.addEventListener('click', function() {
+    // C. Add Click Listener (UPDATED FOR POPUP)
+    path.addEventListener('click', function(e) {
+        
+        // This stops the click from "bubbling up" to the document level
+        // If we didn't have this, the click would hit the country AND the document, immediately closing the popup.
+        e.stopPropagation();
+
         const data = countryData[this.id];
 
         if (data) {
@@ -130,8 +135,20 @@ paths.forEach(path => {
             fields.famous.innerText = data.famous;
             fields.rank.innerText = data.rank;
 
-            introMsg.style.display = 'none';
             detailsDiv.style.display = 'block';
+            
+            // SHOW THE POPUP
+            infoSection.style.display = 'block';
         }
     });
+});
+
+// D. Click Anywhere Else to Close
+document.addEventListener('click', function(e) {
+    const isClickInsideCard = infoSection.contains(e.target);
+    const isClickOnCountry = e.target.tagName === 'path';
+
+    if (!isClickInsideCard && !isClickOnCountry) {
+        infoSection.style.display = 'none';
+    }
 });
